@@ -1,6 +1,10 @@
 import requests
 from .github import get_github_user
-from .stock import get_current_stock_price, get_company_profile, get_analyst_recommendations
+from .stock import (
+    get_current_stock_price,
+    get_company_profile,
+    get_analyst_recommendations,
+)
 
 class ToolManager:
     def __init__(self, account_id, api_token):
@@ -114,5 +118,5 @@ class ToolManager:
         """
         func = self.tool_mapping.get(tool_name)
         if func:
-            return func(**arguments)  # Unpack the arguments as keyword arguments
+            return func.invoke(input=arguments)
         return {"error": f"Tool '{tool_name}' not found."}
